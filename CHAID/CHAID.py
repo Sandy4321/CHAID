@@ -8,7 +8,7 @@ import numpy as np
 import math
 from scipy import stats
 from treelib import Tree
-
+from .rules import CHAIDRules
 
 class CHAIDVector(object):
     """
@@ -307,6 +307,7 @@ class CHAID(object):
         self.observed = CHAIDVector(arr)
         self.weights = weights
         self.split_threshold = split_threshold
+        self.ind_v = ndarr
 
     def build_tree(self):
         """ Build chaid tree """
@@ -587,3 +588,9 @@ class CHAID(object):
         model_predictions = self.model_predictions()
         observed = self.observed.arr
         return 1 - float((model_predictions == observed).sum()) / self.data_size
+
+    def rules(self):
+        """
+        Determines the rules that give rise to a particular node
+        """
+        return CHAIDRules(self)

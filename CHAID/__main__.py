@@ -47,6 +47,7 @@ def main():
     tree = CHAID.from_pandas_df(data, nspace.independent_variables,
                                 nspace.dependent_variable[0], **config)
 
+
     if nspace.classify:
         predictions = pd.Series(tree.node_predictions())
         predictions.name = 'node_id'
@@ -60,6 +61,7 @@ def main():
     else:
         tree.print_tree()
 
+    tree.rules()
 
 if __name__ == "__main__":
     main()
