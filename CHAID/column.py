@@ -38,6 +38,13 @@ class Column(object):
     def possible_groupings(self):
         raise NotImplementedError
 
+    @property
+    def type(self):
+        """
+        Returns a string representing the type
+        """
+        raise NotImplementedError
+
     def deep_copy(self):
         """
         Returns a deep copy.
@@ -136,6 +143,13 @@ class NominalColumn(Column):
         del self._groupings[y]
         self._arr[self._arr == y] = x
 
+    @property
+    def type(self):
+        """
+        Returns a string representing the type
+        """
+        return 'nominal'
+
 
 class OrdinalColumn(Column):
     """
@@ -226,3 +240,10 @@ class OrdinalColumn(Column):
 
         del self._groupings[y]
         self._arr[self._arr == y] = x
+
+    @property
+    def type(self):
+        """
+        Returns a string representing the type
+        """
+        return 'ordinal'
